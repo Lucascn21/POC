@@ -1,1 +1,673 @@
-{"openapi":"3.1.0","info":{"title":"FastAPI","version":"0.1.0"},"paths":{"/users/device":{"get":{"summary":"Get User By Device Id","operationId":"get_user_by_device_id_users_device_get","parameters":[{"name":"device_id","in":"query","required":false,"schema":{"type":"string","title":"Device Id"}}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/users/auth":{"get":{"summary":"Get User By User Auth Id","operationId":"get_user_by_user_auth_id_users_auth_get","parameters":[{"name":"user_auth_id","in":"query","required":false,"schema":{"type":"string","title":"User Auth Id"}}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/users":{"post":{"summary":"Create User","operationId":"create_user_users_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UserBase"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/users/{user_id}":{"put":{"summary":"Update User","operationId":"update_user_users__user_id__put","parameters":[{"name":"user_id","in":"path","required":true,"schema":{"type":"integer","title":"User Id"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UserSignUp"}}}},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/onboarding":{"get":{"summary":"Get Onboarding","operationId":"get_onboarding_onboarding_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}}}},"/pet-candidates":{"get":{"summary":"Get Pet Candidates","operationId":"get_pet_candidates_pet_candidates_get","parameters":[{"name":"user_id","in":"query","required":false,"schema":{"type":"integer","title":"User Id"}}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}},"post":{"summary":"Create Pet Candidate","operationId":"create_pet_candidate_pet_candidates_post","requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/AnalyzePetCandidate"}}}},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/pet-candidates/{pet_candidate_id}":{"delete":{"summary":"Delete Pet Candidate","operationId":"delete_pet_candidate_pet_candidates__pet_candidate_id__delete","parameters":[{"name":"pet_candidate_id","in":"path","required":true,"schema":{"type":"integer","title":"Pet Candidate Id"}}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/pet-candidates/upload":{"post":{"summary":"Upload Pet Candidate Images","operationId":"upload_pet_candidate_images_pet_candidates_upload_post","requestBody":{"content":{"multipart/form-data":{"schema":{"$ref":"#/components/schemas/Body_upload_pet_candidate_images_pet_candidates_upload_post"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/pets":{"put":{"summary":"Update Pet","operationId":"update_pet_pets_put","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/PetUpdateDto"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}},"post":{"summary":"Create Pet","operationId":"create_pet_pets_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/PetBase"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/":{"get":{"summary":"Read Root","operationId":"read_root__get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}}}}},"components":{"schemas":{"AnalyzePetCandidate":{"properties":{"images":{"items":{"type":"string"},"type":"array","title":"Images"},"user_id":{"type":"integer","title":"User Id"}},"type":"object","required":["images","user_id"],"title":"AnalyzePetCandidate"},"Body_upload_pet_candidate_images_pet_candidates_upload_post":{"properties":{"pet_candidate_images":{"items":{"type":"string","format":"binary"},"type":"array","title":"Pet Candidate Images"},"path":{"type":"string","title":"Path"},"user_id":{"type":"integer","title":"User Id"}},"type":"object","required":["pet_candidate_images","path","user_id"],"title":"Body_upload_pet_candidate_images_pet_candidates_upload_post"},"HTTPValidationError":{"properties":{"detail":{"items":{"$ref":"#/components/schemas/ValidationError"},"type":"array","title":"Detail"}},"type":"object","title":"HTTPValidationError"},"PetBase":{"properties":{"user_id":{"type":"integer","title":"User Id"},"candidate_id":{"type":"integer","title":"Candidate Id"}},"type":"object","required":["user_id","candidate_id"],"title":"PetBase"},"PetGenderEnum":{"type":"string","enum":["MALE","FEMALE"],"title":"PetGenderEnum"},"PetUpdateDto":{"properties":{"user_id":{"type":"integer","title":"User Id"},"candidate_id":{"type":"integer","title":"Candidate Id"},"name":{"type":"string","title":"Name"},"weight":{"type":"integer","title":"Weight"},"birthdate":{"type":"string","title":"Birthdate"},"color":{"type":"string","title":"Color"},"breed":{"type":"string","title":"Breed"},"gender":{"$ref":"#/components/schemas/PetGenderEnum"}},"type":"object","required":["user_id","candidate_id","name","weight","birthdate","color","breed","gender"],"title":"PetUpdateDto"},"UserBase":{"properties":{"device_id":{"type":"string","title":"Device Id"}},"type":"object","required":["device_id"],"title":"UserBase"},"UserSignUp":{"properties":{"first_name":{"type":"string","title":"First Name"},"user_auth_id":{"type":"string","title":"User Auth Id"},"family_name":{"type":"string","title":"Family Name"},"email":{"type":"string","title":"Email"}},"type":"object","required":["first_name","user_auth_id","family_name","email"],"title":"UserSignUp"},"ValidationError":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"type":"array","title":"Location"},"msg":{"type":"string","title":"Message"},"type":{"type":"string","title":"Error Type"}},"type":"object","required":["loc","msg","type"],"title":"ValidationError"}}}}
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "FastAPI",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/users/device": {
+            "get": {
+                "summary": "Get User By Device Id",
+                "operationId": "get_user_by_device_id_users_device_get",
+                "parameters": [
+                    {
+                        "name": "device_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "title": "Device Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/auth": {
+            "get": {
+                "summary": "Get User By User Auth Id",
+                "operationId": "get_user_by_user_auth_id_users_auth_get",
+                "parameters": [
+                    {
+                        "name": "user_auth_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "title": "User Auth Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "post": {
+                "summary": "Create User",
+                "operationId": "create_user_users_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserBase"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}": {
+            "put": {
+                "summary": "Update User",
+                "operationId": "update_user_users__user_id__put",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "User Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserSignUp"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/onboarding": {
+            "get": {
+                "summary": "Get Onboarding",
+                "operationId": "get_onboarding_onboarding_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/OnboardingStep"
+                                    },
+                                    "type": "array",
+                                    "title": "Response Get Onboarding Onboarding Get"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pet-candidates": {
+            "get": {
+                "summary": "Get Pet Candidates",
+                "operationId": "get_pet_candidates_pet_candidates_get",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "title": "User Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create Pet Candidate",
+                "operationId": "create_pet_candidate_pet_candidates_post",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AnalyzePetCandidate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pet-candidates/{pet_candidate_id}": {
+            "delete": {
+                "summary": "Delete Pet Candidate",
+                "operationId": "delete_pet_candidate_pet_candidates__pet_candidate_id__delete",
+                "parameters": [
+                    {
+                        "name": "pet_candidate_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Pet Candidate Id"
+                        }
+                    },
+                    {
+                        "name": "delete_images",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": true,
+                            "title": "Delete Images"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pet-candidates/upload": {
+            "post": {
+                "summary": "Upload Pet Candidate Images",
+                "operationId": "upload_pet_candidate_images_pet_candidates_upload_post",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_upload_pet_candidate_images_pet_candidates_upload_post"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pets": {
+            "put": {
+                "summary": "Update Pet",
+                "operationId": "update_pet_pets_put",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PetUpdateDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create Pet",
+                "operationId": "create_pet_pets_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PetBase"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/": {
+            "get": {
+                "summary": "Read Root",
+                "operationId": "read_root__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AnalyzePetCandidate": {
+                "properties": {
+                    "images": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "title": "Images"
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "title": "User Id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "images",
+                    "user_id"
+                ],
+                "title": "AnalyzePetCandidate"
+            },
+            "Body_upload_pet_candidate_images_pet_candidates_upload_post": {
+                "properties": {
+                    "pet_candidate_images": {
+                        "items": {
+                            "type": "string",
+                            "format": "binary"
+                        },
+                        "type": "array",
+                        "title": "Pet Candidate Images"
+                    },
+                    "path": {
+                        "type": "string",
+                        "title": "Path"
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "title": "User Id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "pet_candidate_images",
+                    "path",
+                    "user_id"
+                ],
+                "title": "Body_upload_pet_candidate_images_pet_candidates_upload_post"
+            },
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "OnboardingStep": {
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "title": "Title"
+                    },
+                    "image_url": {
+                        "type": "string",
+                        "title": "Image Url"
+                    },
+                    "step": {
+                        "type": "integer",
+                        "title": "Step"
+                    },
+                    "description": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Description"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "image_url",
+                    "step"
+                ],
+                "title": "OnboardingStep"
+            },
+            "PetBase": {
+                "properties": {
+                    "user_id": {
+                        "type": "integer",
+                        "title": "User Id"
+                    },
+                    "candidate_id": {
+                        "type": "integer",
+                        "title": "Candidate Id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "user_id",
+                    "candidate_id"
+                ],
+                "title": "PetBase"
+            },
+            "PetGenderEnum": {
+                "type": "string",
+                "enum": [
+                    "MALE",
+                    "FEMALE"
+                ],
+                "title": "PetGenderEnum"
+            },
+            "PetUpdateDto": {
+                "properties": {
+                    "user_id": {
+                        "type": "integer",
+                        "title": "User Id"
+                    },
+                    "candidate_id": {
+                        "type": "integer",
+                        "title": "Candidate Id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "weight": {
+                        "type": "integer",
+                        "title": "Weight"
+                    },
+                    "birthdate": {
+                        "type": "string",
+                        "title": "Birthdate"
+                    },
+                    "color": {
+                        "type": "string",
+                        "title": "Color"
+                    },
+                    "breed": {
+                        "type": "string",
+                        "title": "Breed"
+                    },
+                    "gender": {
+                        "$ref": "#/components/schemas/PetGenderEnum"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "user_id",
+                    "candidate_id",
+                    "name",
+                    "weight",
+                    "birthdate",
+                    "color",
+                    "breed",
+                    "gender"
+                ],
+                "title": "PetUpdateDto"
+            },
+            "UserBase": {
+                "properties": {
+                    "device_id": {
+                        "type": "string",
+                        "title": "Device Id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "device_id"
+                ],
+                "title": "UserBase"
+            },
+            "UserSignUp": {
+                "properties": {
+                    "first_name": {
+                        "type": "string",
+                        "title": "First Name"
+                    },
+                    "user_auth_id": {
+                        "type": "string",
+                        "title": "User Auth Id"
+                    },
+                    "family_name": {
+                        "type": "string",
+                        "title": "Family Name"
+                    },
+                    "email": {
+                        "type": "string",
+                        "title": "Email"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "first_name",
+                    "user_auth_id",
+                    "family_name",
+                    "email"
+                ],
+                "title": "UserSignUp"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            }
+        }
+    }
+}
